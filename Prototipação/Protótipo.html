@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DivideAí - Protótipo</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter, que é amigável e moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo base para a fonte e transições suaves */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .screen {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex justify-center items-center min-h-screen p-4">
+
+    <!-- Container principal que simula a tela de um celular -->
+    <div id="app-container" class="max-w-md w-full mx-auto min-h-[800px] h-[800px] bg-gray-100 shadow-2xl rounded-3xl overflow-hidden relative border-4 border-black">
+        
+        <!-- =============================================== -->
+        <!-- Ícones SVG (Lucide) para uso no app             -->
+        <!-- =============================================== -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+            <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+            <symbol id="icon-login" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></symbol>
+            <symbol id="icon-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+            <symbol id="icon-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+            <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></symbol>
+            <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+            <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+            <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+            <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></symbol>
+            <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+            <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+            <symbol id="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+            <symbol id="icon-house" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+            <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+        </svg>
+        
+        <!-- Logo SVG Personalizado -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+            <symbol id="logo-divideai" viewBox="0 0 230 60">
+                <path d="M10 30 L30 10 L50 30 L50 50 L10 50 Z" fill="#fde047"/>
+                <path d="M25 50 L25 35 L35 35 L35 50" fill="#fff"/>
+                <path d="M40 20 L60 0 L80 20 L80 40 L40 40 Z" fill="#6366f1" transform="translate(15, 10)"/>
+                <path d="M55 40 L55 25 L65 25 L65 40" fill="#fff" transform="translate(15, 10)"/>
+                <text x="95" y="42" font-family="Inter, sans-serif" font-size="30" font-weight="bold" fill="#1e293b">DivideAí</text>
+            </symbol>
+        </svg>
+
+        <!-- =============================================== -->
+        <!-- Tela 1: Login                                   -->
+        <!-- =============================================== -->
+        <div id="screen-login" class="screen w-full h-full p-6 flex flex-col justify-center items-center bg-white space-y-6">
+            <svg class="w-48 h-auto text-indigo-600 mb-6" fill="currentColor"><use xlink:href="#logo-divideai"></use></svg>
+            <h1 class="text-3xl font-bold text-gray-800">Login</h1>
+            
+            <div class="w-full space-y-4">
+                <input type="email" placeholder="E-mail" class="w-full px-4 py-3 bg-gray-100 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                <input type="password" placeholder="Senha" class="w-full px-4 py-3 bg-gray-100 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <button onclick="showScreen('screen-attention')" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300">
+                Entrar
+            </button>
+            
+            <p class="text-gray-600">
+                Não tem conta? 
+                <a href="#" onclick="showScreen('screen-cadastro')" class="font-semibold text-indigo-600 hover:underline">Cadastre-se</a>
+            </p>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 2: Cadastro                                -->
+        <!-- =============================================== -->
+        <div id="screen-cadastro" class="screen hidden w-full h-full p-6 flex flex-col justify-center bg-white space-y-6">
+            <div class="absolute top-6 left-6">
+                <button onclick="showScreen('screen-login')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-gray-800 text-center">Crie sua conta</h1>
+            
+            <div class="w-full space-y-4">
+                <input type="text" placeholder="Nome Completo" class="w-full px-4 py-3 bg-gray-100 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                <input type="email" placeholder="E-mail" class="w-full px-4 py-3 bg-gray-100 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                <input type="password" placeholder="Senha (mín. 8 caracteres)" class="w-full px-4 py-3 bg-gray-100 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <button onclick="showScreen('screen-attention')" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300">
+                Cadastrar
+            </button>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 3: Attention (Onboarding)                  -->
+        <!-- =============================================== -->
+        <div id="screen-attention" class="screen hidden w-full h-full p-6 flex flex-col justify-center items-center bg-white text-center space-y-8">
+            <svg class="w-32 h-32 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            
+            <h1 class="text-3xl font-bold text-gray-800">Quase lá!</h1>
+            <p class="text-lg text-gray-600">Para começar, o que você gostaria de fazer?</p>
+            
+            <div class="w-full space-y-4">
+                <button onclick="showScreen('screen-dashboard')" class="w-full bg-indigo-600 text-white p-5 rounded-2xl font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300 flex items-center justify-center space-x-3">
+                    <svg class="w-7 h-7"><use xlink:href="#icon-house"></use></svg>
+                    <span>Cadastrar uma República</span>
+                </button>
+                <button onclick="showScreen('screen-dashboard')" class="w-full bg-gray-200 text-gray-800 p-5 rounded-2xl font-semibold text-lg shadow-md hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-3">
+                    <svg class="w-7 h-7"><use xlink:href="#icon-link"></use></svg>
+                    <span>Vincular-se à uma República</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- =============================================== -->
+        <!-- Tela 4: Dashboard                               -->
+        <!-- =============================================== -->
+        <div id="screen-dashboard" class="screen hidden w-full h-full bg-gray-100">
+            <!-- Header do Dashboard -->
+            <header class="bg-indigo-600 p-6 rounded-b-3xl shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <svg class="w-32 h-auto text-white" fill="currentColor"><use xlink:href="#logo-divideai"></use></svg>
+                    <button onclick="showScreen('screen-meu-perfil')" class="p-2 rounded-full hover:bg-indigo-700">
+                        <svg class="w-8 h-8 text-white"><use xlink:href="#icon-user"></use></svg>
+                    </button>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Olá, Gabriel!</h2>
+                <p class="text-indigo-200 text-lg">Bem-vindo à República "Vila dos Lobos"</p>
+            </header>
+            
+            <!-- Conteúdo do Dashboard -->
+            <main class="p-6 grid grid-cols-2 gap-5">
+                <button onclick="showScreen('screen-tarefas-lista')" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center justify-center space-y-3 aspect-square">
+                    <svg class="w-16 h-16 text-yellow-500"><use xlink:href="#icon-check-square"></use></svg>
+                    <span class="text-xl font-semibold text-gray-800">Tarefas</span>
+                </button>
+                
+                <button onclick="showScreen('screen-cobrancas-lista')" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center justify-center space-y-3 aspect-square">
+                    <svg class="w-16 h-16 text-green-500"><use xlink:href="#icon-dollar"></use></svg>
+                    <span class="text-xl font-semibold text-gray-800">Cobranças</span>
+                </button>
+                
+                <button onclick="showScreen('screen-chat')" class="col-span-2 bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center space-x-4">
+                    <svg class="w-12 h-12 text-blue-500"><use xlink:href="#icon-chat"></use></svg>
+                    <span class="text-xl font-semibold text-gray-800">Acessar Chat Geral</span>
+                </button>
+            </main>
+        </div>
+        
+        <!-- =============================================== -->
+        <!-- Tela 5 & 7: Lista de Tarefas (Visualizar)       -->
+        <!-- =============================================== -->
+        <div id="screen-tarefas-lista" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-dashboard')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Tarefas da Semana</h1>
+                <button onclick="showScreen('screen-meu-perfil')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-7 h-7 text-gray-700"><use xlink:href="#icon-user"></use></svg>
+                </button>
+            </header>
+            
+            <!-- Lista de Tarefas -->
+            <main class="flex-1 p-6 space-y-4 overflow-y-auto">
+                <!-- Tarefa 1 (Concluída) -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center space-x-4 opacity-60">
+                    <button class="w-8 h-8 bg-green-500 rounded-lg flex-shrink-0 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white"><use xlink:href="#icon-check"></use></svg>
+                    </button>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800 line-through">Lavar a louça do almoço</p>
+                        <p class="text-sm text-gray-500 line-through">Atribuído a: Você</p>
+                    </div>
+                    <img src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=Eu" class="w-10 h-10 rounded-full">
+                </div>
+                
+                <!-- Tarefa 2 (Pendente) -->
+                <div class="bg-white p-4 rounded-2xl shadow-md flex items-center space-x-4">
+                    <button class="w-8 h-8 bg-gray-200 rounded-lg flex-shrink-0"></button>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800">Limpar o banheiro social</p>
+                        <p class="text-sm text-gray-500">Atribuído a: Ana</p>
+                    </div>
+                    <img src="https://placehold.co/40x40/FBBF24/854D0E?text=A" class="w-10 h-10 rounded-full">
+                </div>
+                
+                <!-- Tarefa 3 (Pendente) -->
+                <div class="bg-white p-4 rounded-2xl shadow-md flex items-center space-x-4">
+                    <button class="w-8 h-8 bg-gray-200 rounded-lg flex-shrink-0"></button>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800">Tirar o lixo</p>
+                        <p class="text-sm text-gray-500">Atribuído a: Você</p>
+                    </div>
+                    <img src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=Eu" class="w-10 h-10 rounded-full">
+                </div>
+            </main>
+            
+            <!-- Botão Flutuante (FAB) para Criar -->
+            <button onclick="showScreen('screen-tarefa-form')" class="absolute bottom-8 right-8 bg-yellow-400 w-16 h-16 rounded-full shadow-lg flex items-center justify-center hover:bg-yellow-500 transition duration-300">
+                <svg class="w-8 h-8 text-gray-800"><use xlink:href="#icon-plus"></use></svg>
+            </button>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 6: Criar / Editar Tarefa                   -->
+        <!-- =============================================== -->
+        <div id="screen-tarefa-form" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-tarefas-lista')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Nova Tarefa</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Formulário -->
+            <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+                <div>
+                    <label class="font-semibold text-gray-700">Nome da Tarefa <span class="text-red-500">*</span></label>
+                    <input id="tarefa-nome" type="text" placeholder="Ex: Limpar o fogão" class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label class="font-semibold text-gray-700">Descrição (Opcional)</label>
+                    <textarea id="tarefa-descricao" placeholder="Ex: Usar o produto X e Y" rows="3" class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                
+                <div>
+                    <!-- Botão de IA Adicionado -->
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="font-semibold text-gray-700">Descrição (Opcional)</label>
+                        <button onclick="handleGerarDescricaoTarefa()" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-md font-semibold hover:bg-indigo-200 flex items-center space-x-1">
+                            <svg class="w-3 h-3"><use xlink:href="#icon-sparkles"></use></svg>
+                            <span>Gerar Descrição</span>
+                        </button>
+                    </div>
+                    <textarea id="tarefa-descricao" placeholder="Ex: Usar o produto X e Y" rows="3" class="w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                
+                <div>
+                    <label class="font-semibold text-gray-700">Usuário Vinculado <span class="text-red-500">*</span></label>
+                    <select class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500 appearance-none">
+                        <option>Selecionar morador...</option>
+                        <option>Você (Gabriel)</option>
+                        <option>Ana</option>
+                        <option>Bruno</option>
+                    </select>
+                </div>
+                
+                <button class="w-full bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2">
+                    <svg class="w-6 h-6"><use xlink:href="#icon-camera"></use></svg>
+                    <span>Adicionar Foto (Opcional)</span>
+                </button>
+                
+                <button onclick="showScreen('screen-tarefas-lista')" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300">
+                    Salvar Tarefa
+                </button>
+            </main>
+        </div>
+        
+        <!-- =============================================== -->
+        <!-- Tela 8: Lista de Cobranças                      -->
+        <!-- =============================================== -->
+        <div id="screen-cobrancas-lista" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-dashboard')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Cobranças</h1>
+                <button onclick="showScreen('screen-meu-perfil')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-7 h-7 text-gray-700"><use xlink:href="#icon-user"></use></svg>
+                </button>
+            </header>
+            
+            <!-- Card de Balanço -->
+            <div class="p-6">
+                <div class="bg-indigo-600 text-white p-6 rounded-2xl shadow-lg">
+                    <p class="text-lg text-indigo-200">Seu balanço geral</p>
+                    <p class="text-4xl font-bold text-green-300">R$ 45,00 a receber</p>
+                    <div class="mt-4 flex justify-between">
+                        <span class="text-indigo-200">A pagar: <span class="font-semibold text-white">R$ 25,00</span></span>
+                        <span class="text-indigo-200">A receber: <span class="font-semibold text-white">R$ 70,00</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lista de Cobranças -->
+            <main class="flex-1 px-6 space-y-4 overflow-y-auto">
+                <h2 class="text-lg font-semibold text-gray-700">Pendências</h2>
+                <!-- Cobrança 1 (A Pagar) -->
+                <div onclick="showScreen('screen-cobranca-detalhe')" class="bg-white p-4 rounded-2xl shadow-md flex items-center space-x-4 cursor-pointer">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-500"><use xlink:href="#icon-dollar"></use></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800">Conta de Luz</p>
+                        <p class="text-sm text-gray-500">Criado por: Ana</p>
+                    </div>
+                    <span class="font-semibold text-red-500">- R$ 25,00</span>
+                </div>
+                
+                <!-- Cobrança 2 (A Receber) -->
+                <div onclick="showScreen('screen-cobranca-detalhe')" class="bg-white p-4 rounded-2xl shadow-md flex items-center space-x-4 cursor-pointer">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-500"><use xlink:href="#icon-dollar"></use></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800">Supermercado</p>
+                        <p class="text-sm text-gray-500">Criado por: Você</p>
+                    </div>
+                    <span class="font-semibold text-green-500">+ R$ 70,00</span>
+                </div>
+            </main>
+            
+            <!-- FAB para Criar -->
+            <button onclick="showScreen('screen-cobranca-form')" class="absolute bottom-8 right-8 bg-yellow-400 w-16 h-16 rounded-full shadow-lg flex items-center justify-center hover:bg-yellow-500 transition duration-300">
+                <svg class="w-8 h-8 text-gray-800"><use xlink:href="#icon-plus"></use></svg>
+            </button>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela (Extra): Detalhe da Cobrança               -->
+        <!-- =============================================== -->
+        <div id="screen-cobranca-detalhe" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-cobrancas-lista')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Detalhe da Cobrança</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Conteúdo -->
+            <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h2 class="text-2xl font-bold text-gray-800">Conta de Luz</h2>
+                    <p class="text-sm text-gray-500 mb-4">Criado por Ana em 28/10/2025</p>
+                    <p class="text-4xl font-bold text-gray-900">R$ 100,00 <span class="text-lg font-normal text-gray-600">(Total)</span></p>
+                    <p class="text-lg font-semibold text-gray-700 mt-2">Valor por pessoa: R$ 25,00</p>
+                    
+                    <img src="https://placehold.co/600x400/E2E8F0/A0AEC0?text=Foto+da+Conta" class="mt-4 rounded-lg w-full h-auto object-cover">
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Status dos Pagamentos</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Ana (Criador)</span>
+                            <span class="font-semibold text-gray-400">OK</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Você (Gabriel)</span>
+                            <span class="font-semibold text-red-500">PENDENTE</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Bruno</span>
+                            <span class="font-semibold text-green-500">PAGO</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-gray-700">Carla</span>
+                            <span class="font-semibold text-red-500">PENDENTE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="showScreen('screen-cobranca-form')" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5"><use xlink:href="#icon-edit"></use></svg>
+                        <span>Editar</span>
+                    </button>
+                    <button class="w-full bg-red-100 text-red-600 py-3 rounded-lg font-semibold hover:bg-red-200 transition duration-300 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5"><use xlink:href="#icon-trash"></use></svg>
+                        <span>Remover</span>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 9: Criar / Editar Cobrança                 -->
+        <!-- =============================================== -->
+        <div id="screen-cobranca-form" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-cobrancas-lista')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Nova Cobrança</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Formulário -->
+            <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+                <div>
+                    <label class="font-semibold text-gray-700">Nome da Cobrança <span class="text-red-500">*</span></label>
+                    <input id="cobranca-nome" type="text" placeholder="Ex: Supermercado do mês" class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label class="font-semibold text-gray-700">Valor Total (R$) <span class="text-red-500">*</span></label>
+                    <input id="cobranca-valor" type="number" placeholder="Ex: 150,00" class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label class="font-semibold text-gray-700">Descrição (Opcional)</label>
+                    <textarea placeholder="Ex: Compras no dia 25" rows="2" class="mt-2 w-full px-4 py-3 bg-white rounded-lg border-2 border-gray-200 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                
+                <div>
+                    <label class="font-semibold text-gray-700">Usuários Vinculados <span class="text-red-500">*</span></label>
+                    <div class="mt-2 space-y-2 p-4 bg-white rounded-lg border-2 border-gray-200">
+                        <label class="flex items-center space-x-3"><input type="checkbox" class="h-5 w-5 rounded text-indigo-600"> <span>Dividir com Todos (4)</span></label>
+                        <hr>
+                        <label class="flex items-center space-x-3"><input type="checkbox" class="h-5 w-5 rounded text-indigo-600"> <span>Ana</span></label>
+                        <label class="flex items-center space-x-3"><input type="checkbox" class="h-5 w-5 rounded text-indigo-600"> <span>Bruno</span></label>
+                        <label class="flex items-center space-x-3"><input type="checkbox" class="h-5 w-5 rounded text-indigo-600"> <span>Carla</span></label>
+                    </div>
+                    <p class="text-center font-semibold text-indigo-600 mt-3 text-lg">Valor por pessoa: R$ 37,50</p>
+                </div>
+                
+                <button class="w-full bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2">
+                    <svg class="w-6 h-6"><use xlink:href="#icon-camera"></use></svg>
+                    <span>Adicionar Foto (Opcional)</span>
+                </button>
+                
+                <!-- Botão de IA Adicionado -->
+                <button onclick="handleLerFotoCobranca()" class="w-full bg-indigo-100 text-indigo-700 py-3 rounded-lg font-semibold hover:bg-indigo-200 transition duration-300 flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5"><use xlink:href="#icon-sparkles"></use></svg>
+                    <span>✨ Ler dados da foto com IA</span>
+                </button>
+                
+                <button onclick="showScreen('screen-cobrancas-lista')" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300 mt-4">
+                <button class="w-full bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2">
+                    <svg class="w-6 h-6"><use xlink:href="#icon-camera"></use></svg>
+                    <span>Adicionar Foto (Opcional)</span>
+                </button>
+                
+                <button onclick="showScreen('screen-cobrancas-lista')" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-indigo-700 transition duration-300 mt-4">
+                    Salvar Cobrança
+                </button>
+            </main>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 10: Chat Geral                             -->
+        <!-- =============================================== -->
+        <div id="screen-chat" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-dashboard')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Chat da República</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Janela do Chat -->
+            <main class="flex-1 p-6 space-y-4 overflow-y-auto">
+                <!-- Mensagem Recebida -->
+                <div class="flex items-start space-x-3">
+                    <img onclick="showScreen('screen-perfil-participante')" src="https://placehold.co/40x40/FBBF24/854D0E?text=A" class="w-10 h-10 rounded-full cursor-pointer">
+                    <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm max-w-xs">
+                        <p class="text-sm font-semibold text-yellow-600">Ana</p>
+                        <p class="text-gray-800">Pessoal, a louça tá acumulando de novo! Quem é o responsável hoje?</p>
+                        <p class="text-xs text-gray-400 text-right mt-1">10:30 AM</p>
+                    </div>
+                </div>
+                
+                <!-- Mensagem Enviada -->
+                <div class="flex items-start justify-end space-x-3">
+                    <div class="bg-indigo-600 text-white p-3 rounded-l-lg rounded-br-lg shadow-sm max-w-xs">
+                        <p class="text-gray-100">Opa, é meu dia! Tô chegando do estágio e já limpo tudo.</p>
+                        <p class="text-xs text-indigo-200 text-right mt-1">10:31 AM</p>
+                    </div>
+                    <img src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=Eu" class="w-10 h-10 rounded-full">
+                </div>
+            </main>
+            
+            <!-- Input de Mensagem -->
+            <footer class="p-4 bg-white shadow-inner flex items-center space-x-3">
+                <input type="text" placeholder="Digite sua mensagem..." class="flex-1 px-4 py-3 bg-gray-100 rounded-full border-2 border-gray-200 focus:outline-none focus:border-indigo-500">
+                <button class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white">
+                    <svg class="w-6 h-6"><use xlink:href="#icon-send"></use></svg>
+                </button>
+            </footer>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 11: Perfil do Participante                 -->
+        <!-- =============================================== -->
+        <div id="screen-perfil-participante" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-chat')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Perfil da Ana</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Conteúdo -->
+            <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+                <!-- Card do Perfil -->
+                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/FBBF24/854D0E?text=A" class="w-24 h-24 rounded-full border-4 border-white shadow-lg -mt-16 mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Ana Silva</h2>
+                    <p class="text-gray-600">ana.silva@email.com</p>
+                </div>
+                
+                <!-- Card de Pendências em Comum -->
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Pendências com você</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Tarefas pendentes dela:</span>
+                            <span class="font-bold text-gray-900">2</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Tarefas pendentes suas (para ela):</span>
+                            <span class="font-bold text-gray-900">1</span>
+                        </div>
+                        <hr>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Valor a pagar para ela:</span>
+                            <span class="font-bold text-red-500">R$ 25,00</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Valor a receber dela:</span>
+                            <span class="font-bold text-green-500">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- Tela 12: Meu Perfil                             -->
+        <!-- =============================================== -->
+        <div id="screen-meu-perfil" class="screen hidden w-full h-full bg-gray-100 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white p-5 flex justify-between items-center shadow-md">
+                <button onclick="showScreen('screen-dashboard')" class="p-2 rounded-full hover:bg-gray-200">
+                    <svg class="w-6 h-6 text-gray-700"><use xlink:href="#icon-arrow-left"></use></svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-800">Meu Perfil</h1>
+                <div class="w-10"></div> <!-- Espaçador -->
+            </header>
+            
+            <!-- Conteúdo -->
+            <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+                <!-- Card do Perfil -->
+                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/E2E8F0/A0AEC0?text=Eu" class="w-24 h-24 rounded-full border-4 border-white shadow-lg -mt-16 mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Gabriel (Você)</h2>
+                    <p class="text-gray-600">gabriel.riul@email.com</p>
+                </div>
+                
+                <!-- Botões de Ação -->
+                <div class="bg-white p-4 rounded-2xl shadow-md space-y-2">
+                    <button class="w-full text-left p-4 rounded-lg hover:bg-gray-100 text-gray-700 font-semibold flex items-center space-x-3">
+                        <svg class="w-6 h-6 text-indigo-600"><use xlink:href="#icon-edit"></use></svg>
+                        <span>Editar meus dados</span>
+                    </button>
+                    <hr>
+                    <button onclick="showScreen('screen-login')" class="w-full text-left p-4 rounded-lg hover:bg-gray-100 text-red-500 font-semibold flex items-center space-x-3">
+                        <svg class="w-6 h-6 text-red-500"><use xlink:href="#icon-logout"></use></svg>
+                        <span>Fazer Logout</span>
+                    </button>
+                    <hr>
+                    <button class="w-full text-left p-4 rounded-lg hover:bg-gray-100 text-gray-600 font-semibold flex items-center space-x-3">
+                        <svg class="w-6 h-6 text-gray-600"><use xlink:href="#icon-trash"></use></svg>
+                        <span>Excluir minha conta</span>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <script>
+        // Função simples para simular a navegação entre as telas
+        function showScreen(screenId) {
+            // 1. Esconde todas as telas ativas para uma transição suave
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                if (!screen.classList.contains('hidden')) {
+                    screen.classList.add('opacity-0');
+                    setTimeout(() => {
+                        screen.classList.add('hidden');
+                    }, 300); // Duração da transição
+                }
+            });
+
+            // 2. Mostra a tela alvo
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                // Remove 'hidden' para que a tela possa se tornar visível
+                targetScreen.classList.remove('hidden');
+                // Pequeno delay para garantir que a transição de opacidade de 'hidden' para 'block' seja aplicada
+                setTimeout(() => {
+                    targetScreen.classList.remove('opacity-0');
+                }, 50); // Inicia a transição de fade-in
+            }
+        }
+        
+        // --- Funções de IA Adicionadas ---
+
+        // Função para mostrar/esconder o modal de loading
+        function showLoading(show) {
+            const modal = document.getElementById('modal-loading');
+            if (show) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            } else {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        // Função para simular uma chamada à API do Gemini
+        function simulateGeminiCall(callback, duration = 1500) {
+            // Aqui é onde a chamada real `fetch` para a API Gemini aconteceria
+            // Ex: const response = await fetch(apiUrl, { ... });
+            // Por enquanto, usamos um setTimeout para simular a espera.
+            
+            showLoading(true);
+            
+            setTimeout(() => {
+                showLoading(false);
+                callback();
+            }, duration);
+        }
+
+        // Recurso 1: Sugerir uma tarefa aleatória
+        function handleGerarTarefaAleatoria() {
+            const prompt = "Aja como um gerente de uma república de estudantes. Gere uma tarefa doméstica comum que precisa ser feita, com nome e descrição.";
+            // (simulando chamada com o prompt acima)
+
+            simulateGeminiCall(() => {
+                const tarefas = [
+                    { nome: "Limpar a geladeira", desc: "Tirar tudo, verificar validades e limpar prateleiras." },
+                    { nome: "Organizar a despensa", desc: "Verificar o que está vencido e organizar os mantimentos." },
+                    { nome: "Limpeza da sala de estar", desc: "Aspirar o sofá, tirar o pó dos móveis e organizar." }
+                ];
+                const sugestao = tarefas[Math.floor(Math.random() * tarefas.length)];
+                
+                document.getElementById('tarefa-nome').value = sugestao.nome;
+                document.getElementById('tarefa-descricao').value = `(IA) ${sugestao.desc}`;
+            }, 1200);
+        }
+
+        // Recurso 2: Gerar descrição para uma tarefa
+        function handleGerarDescricaoTarefa() {
+            const nomeTarefa = document.getElementById('tarefa-nome').value;
+            if (!nomeTarefa) {
+                alert("Por favor, digite um nome para a tarefa primeiro."); // Evitamos alert, mas para protótipo é ok.
+                return;
+            }
+
+            const prompt = `Gere uma descrição curta, em uma linha, para a tarefa doméstica: "${nomeTarefa}"`;
+            // (simulando chamada com o prompt acima)
+            
+            simulateGeminiCall(() => {
+                document.getElementById('tarefa-descricao').value = `(IA) Descrição sugerida para "${nomeTarefa}": Inclui todos os sub-itens necessários para a conclusão.`;
+            }, 1000);
+        }
+
+        // Recurso 3: Ler dados da foto de uma cobrança (simulado)
+        function handleLerFotoCobranca() {
+            const prompt = "Extraia o nome do estabelecimento e o valor total desta imagem de nota fiscal.";
+            // (simulando chamada multimodal com o prompt acima)
+
+            simulateGeminiCall(() => {
+                document.getElementById('cobranca-nome').value = "Supermercado XYZ (Lido pela IA)";
+                document.getElementById('cobranca-valor').value = "240.50";
+            }, 2000);
+        }
+
+        // Define a tela inicial (remova 'hidden' dela)
+        document.getElementById('screen-login').classList.remove('hidden', 'opacity-0');
+    </script>
+
+</body>
+</html>
+
