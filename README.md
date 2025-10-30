@@ -13,3 +13,4 @@ Este sistema seria um aplicativo simples para ajudar estudantes que moram juntos
 Documentos:
 - #### [Requisitos Funcionais](https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RF.md).
 - #### [Requisitos Não Funcionais](https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RNF.md).
+- #### [Protótipo](Prototipação/Protótipo.html).
