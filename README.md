@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.svg" alt="Logo DivideAí" width="250"/>
+  <img src="./Prototipação/Images/Logo.svg" alt="Logo DivideAí" width="250"/>
 </p>
 
 <h1 align="center">
@@ -52,33 +52,33 @@ O escopo do protótipo cobre as seguintes funcionalidades principais:
 
 Você pode testar e navegar na versão interativa (HTML/CSS) do nosso protótipo!
 
-➡️ **[Acessar o Protótipo do DivideAí](https://gabrielriul.github.io/DivideAi/Prototipa%C3%A7%C3%A3o/Prot%C3%B3tipo.html)**
+➡️ <a href="https://gabrielriul.github.io/DivideAi/Prototipa%C3%A7%C3%A3o/Prot%C3%B3tipo.html" style="text-decoration: none;">**Acessar o Protótipo do DivideAí**</a>
 
 ## 📚 Documentação do Projeto
 
 Todos os artefatos ágeis e documentos de requisitos gerados para a disciplina estão organizados aqui:
 
-* #### [Requisitos Funcionais (RF)](https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RF.md)
-* #### [Requisitos Não Funcionais (RNF)](https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RNF.md)
-* #### [Histórias de Usuário (US)](https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/HistoriasUsuario.md)
-* #### [Diagramas UML (Caso de Uso, Atividades)](https://github.com/gabrielriul/DivideAi/tree/main/Requisitos%20de%20Sistema)
-* #### [Workflow de Git (Branches, CI, PR)](https://github.com/gabrielriul/DivideAi/blob/main/branch.md)
-* #### [Imagens e Screenshots do Protótipo](https://github.com/gabrielriul/DivideAi/tree/main/Prototipa%C3%A7%C3%A3o/Images)
+* #### <a href="https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RF.md" style="text-decoration: none;">Requisitos Funcionais (RF)</a>
+* #### <a href="https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/RNF.md" style="text-decoration: none;">Requisitos Não Funcionais (RNF)</a>
+* #### <a href="https://github.com/gabrielriul/DivideAi/blob/main/Requisitos%20de%20Usu%C3%A1rio/HistoriasUsuario.md" style="text-decoration: none;">Histórias de Usuário (US)</a>
+* #### <a href="https://github.com/gabrielriul/DivideAi/tree/main/Requisitos%20de%20Sistema" style="text-decoration: none;">Diagramas UML (Caso de Uso, Classes e Atividades)</a>
+* #### <a href="https://github.com/gabrielriul/DivideAi/blob/main/branch.md" style="text-decoration: none;">Workflow de Git (Branches, CI, PR)</a>
+* #### <a href="https://github.com/gabrielriul/DivideAi/tree/main/Prototipa%C3%A7%C3%A3o/Images" style="text-decoration: none;">Imagens e Screenshots do Protótipo</a>
 
 ## 🛠️ Ferramentas e Conceitos
 
 Este projeto é um exercício prático sobre:
 
-* **Versionamento:** Git & GitHub
+* **Versionamento:** Git & GitHub (Web e Desktop)
 * **Metodologia:** Agile (Scrum, User Stories)
-* **Modelagem:** UML (Diagramas de Caso de Uso e Atividades)
+* **Modelagem:** UML (Diagramas de Caso de Uso, Classes e Atividades)
 * **Prototipação:** HTML5, CSS (TailwindCSS) & JavaScript
 * **CI/CD:** GitHub Pages (para deploy do protótipo)
 
 ## 👥 Autores
 
-| Aluno | GitHub |
-| :--- | :--- |
-| Gabriel Riul | [@gabrielriul](https://github.com/gabrielriul) |
-| José Trautwein | [@joselucasnt](https://github.com/joselucasnt) |
-| João Trautwein | [@joaogntspfc](https://github.com/joaogntspfc) |
+| Aluno | RA | GitHub |
+| :--- | :--- | :--- |
+| Gabriel Riul | 2064430 | <a href="https://github.com/gabrielriul" style="text-decoration: none;">@gabrielriul</a> |
+| José Trautwein | 2553074 | <a href="https://github.com/gabrielriul" style="text-decoration: none;">@joselucasnt</a> |
+| João Trautwein | 2564408 | <a href="https://github.com/gabrielriul" style="text-decoration: none;">@joaogntspfc</a> |
