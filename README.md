@@ -2,12 +2,8 @@
   <img src="https://github.com/gabrielriul/DivideAi/raw/refs/heads/main/Prototipa%C3%A7%C3%A3o/Images/Logo.svg" alt="Logo DivideAí" width="250"/>
 </p>
 
-<h1 align="center">
-  DivideAí
-</h1>
-
 <p align="center">
-  <em>Não deixe a faculdade atrapalhar toda sua vida!</em>
+  <em>Não deixe a faculdade atrapalhar sua vida!</em>
 </p>
 
 <p align="center">
