@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Prototipação/Images/Logo.svg" alt="Logo DivideAí" width="250"/>
+  <img src="https://github.com/gabrielriul/DivideAi/raw/refs/heads/main/Prototipa%C3%A7%C3%A3o/Images/Logo.svg" alt="Logo DivideAí" width="250"/>
 </p>
 
 <h1 align="center">
@@ -22,7 +22,6 @@
 
 ## 📌 Índice
 
-- [📌 Índice](#-índice)
 - [🎯 Sobre o Projeto](#-sobre-o-projeto)
 - [✨ Funcionalidades](#-funcionalidades)
 - [🚀 Protótipo Online](#-protótipo-online)
